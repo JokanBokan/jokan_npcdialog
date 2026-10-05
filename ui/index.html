@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NPC Dialog</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="javascript.js" defer></script>
+</head>
+
+<body>
+    <div class="bottom-gradient"></div>
+    <div class="esc-prompt">
+        <div class="keybind">ESC</div>
+        <div class="prompt-text">Izlaz</div>
+    </div>
+
+    <div class="dialog-wrapper" id="container">
+        <div class="dialog-blur-bg"></div>
+        <div class="dialog-content" id="background">
+            <div class="npc-header">
+                <h1 class="npc-name" id="npcismiaq">Peter</h1>
+                <div class="npc-job-container">
+                    <div class="line left-line"></div>
+                    <span class="npc-job" id="npcmeslekamk">Gun Dealer</span>
+                    <div class="line right-line"></div>
+                </div>
+            </div>
+
+            <p class="npc-text" id="npcbiseydiyo">How can i help you?</p>
+
+            <div class="dialog-actions" id="button-container">
+                <!-- Buttons injected by JS -->
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

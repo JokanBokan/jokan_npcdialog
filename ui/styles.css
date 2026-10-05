@@ -1,0 +1,260 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap');
+
+:root {
+    --text-primary: #ffffff;
+    --text-secondary: #dcdcdc;
+    --accent-color: #ff8c00;
+    --bg-overlay: rgba(0, 0, 0, 0.9);
+    --btn-bg: rgba(30, 20, 10, 0.65);
+    --btn-hover: rgba(50, 30, 15, 0.85);
+    --transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: none;
+    background-color: transparent !important;
+    font-family: 'Montserrat', sans-serif;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    user-select: none;
+    color: var(--text-primary);
+}
+
+.bottom-gradient {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 40%;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.6) 0%, transparent 100%);
+    z-index: 1;
+    pointer-events: none;
+}
+
+.esc-prompt {
+    position: absolute;
+    top: 40px;
+    right: 50px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    z-index: 10;
+    animation: fadeIn 0.5s ease-out;
+}
+
+.esc-prompt .keybind {
+    background-color: rgba(20, 20, 20, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-primary);
+    font-weight: 700;
+    font-size: 14px;
+    padding: 6px 12px;
+    border-radius: 4px;
+}
+
+.esc-prompt .prompt-text {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.dialog-wrapper {
+    position: absolute;
+    bottom: 5%;
+    /* adjusted down slightly to accommodate background glow better */
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    /* ensures it anchors to the bottom */
+    z-index: 5;
+    perspective: 1000px;
+}
+
+.dialog-blur-bg {
+    position: absolute;
+    bottom: -100px;
+    /* extends safely below screen */
+    top: -70px;
+    /* extends above NPC name */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 140vw;
+    /* extremely wide to avoid hard edges */
+    max-width: 1400px;
+    background: radial-gradient(ellipse at bottom center, rgba(15, 10, 5, 0.95) 0%, rgba(15, 10, 5, 0.8) 35%, rgba(15, 10, 5, 0.3) 60%, transparent 80%);
+    filter: blur(25px);
+    /* heavy blur creates a smoke-like gradient */
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0;
+    animation: fadeIn 0.8s ease-out forwards;
+}
+
+.dialog-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    max-width: 900px;
+    animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.npc-header {
+    margin-bottom: 24px;
+}
+
+.npc-name {
+    font-size: 36px;
+    font-weight: 800;
+    color: var(--text-primary);
+    line-height: 1.2;
+    margin-bottom: 8px;
+    letter-spacing: 0.5px;
+}
+
+.npc-name b {
+    font-weight: 800;
+}
+
+.npc-job-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+.npc-job-container .line {
+    height: 1px;
+    width: 80px;
+    position: relative;
+    background-color: rgba(255, 140, 0, 0.4);
+}
+
+.npc-job-container .left-line {
+    background: linear-gradient(270deg, var(--accent-color), transparent);
+}
+
+.npc-job-container .right-line {
+    background: linear-gradient(90deg, var(--accent-color), transparent);
+}
+
+.npc-job-container .line::after {
+    content: '';
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background-color: var(--accent-color);
+    border-radius: 50%;
+    top: 50%;
+    transform: translateY(-50%);
+    box-shadow: 0 0 8px var(--accent-color);
+}
+
+.npc-job-container .left-line::after {
+    right: 0;
+}
+
+.npc-job-container .right-line::after {
+    left: 0;
+}
+
+.npc-job {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+
+.npc-text {
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    font-weight: 500;
+    margin-bottom: 35px;
+    max-width: 600px;
+}
+
+.dialog-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    max-width: 700px;
+}
+
+.action-btn {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: var(--btn-bg);
+    border: 1px solid rgba(255, 140, 0, 0.2);
+    padding: 12px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: var(--transition);
+    min-width: 280px;
+}
+
+.action-btn:hover {
+    background: var(--btn-hover);
+    border-color: rgba(255, 140, 0, 0.6);
+    transform: scale(1.02);
+}
+
+.btn-key {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent-color);
+    font-size: 18px;
+    width: 24px;
+}
+
+.btn-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-primary);
+    flex-grow: 1;
+    text-align: left;
+}
+
+.btn-hint {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.3);
+    font-weight: 700;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
